@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <meta charSet="utf-8"/>
+    <title>
+      CRM 2016 Deactivate Record Bug and Workaround
+    </title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <link rel="alternate" type="application/atom+xml" href="/feed.xml" title="News Feed"/>
+  </head>
+  <body>
+    <div class="container">
+      <header class="masthead">
+        <h3 class="masthead-title">
+          <a href="/">
+            Garth Blog
+          </a>
+          <small class="masthead-link">
+            <a href="/archive.html">
+              Archive
+            </a>
+          </small>
+        </h3>
+      </header>
+      <div id="content">
+        <article class="post">
+          <h1 class="post-title">
+            CRM 2016 Deactivate Record Bug and Workaround
+          </h1>
+          <div class="post-date">
+            8/22/2016
+          </div>
+          <h3>Summary</h3>
+<p><strong>Problem:</strong></p>
+<p>If an entity record is missing required fields, you get an error when trying to deactivate the record from the form.</p>
+<p><strong>Solution Summary:</strong></p>
+<p>I assume you know how to use RibbonWorkbench to edit entity ribbons so I gloss over the setup specifics.  Review the <a href="https://ribbonworkbench.uservoice.com/knowledgebase/articles/71374-1-getting-started-with-the-ribbon-workbench">Getting Started Guide at the author's website</a> and the <a href="http://develop1.net/public/post/Ribbon-Workbench-2016-Beta.aspx">CRM 2016 RibbonWorkbench beta announcement post</a> for more information about Ribbon Workbench.</p>
+<ol>
+<li>Open a solution containing the entities you want to fix in Ribbon Workbench.</li>
+<li>Add a Custom Javascript Action <strong>above</strong> the existing Custom Javascript Action.  Our new action must execute first.</li>
+<li>Have the action call a function that does the following:
+<ol>
+<li>remove the required level from all form fields then return.  This must be synchronous code 		 because the next Action will execute immediately after the first action returns.  It should        remember which fields were required if you want to restore them after <code>statecode</code> changes.</li>
+<li><em>(optional)</em> add an OnChange event to the <code>statecode</code> attribute (make sure this is on the form) to restore the required level to the correct attributes.</li>
+</ol>
+</li>
+<li>Publish the solution from Ribbon Workbench.</li>
+</ol>
+<hr />
+<h3>The Workaround</h3>
+<p>In CRM 2016 (<a href="https://community.dynamics.com/crm/f/117/t/117841">and similarly for others in 2013+</a>), we ran into an odd error around deactivating Accounts and Contacts from their forms.  This likely can happen on any record having a Deactivate button.  If a Contact record is missing a required field denoted by a red *, then clicking the Deactivate button and completing the popup window by clicking OK, you get a not so helpful error message:</p>
+<p><img src="http://i.imgur.com/RZGPVLx.png" alt="Popup saying An Error has occurred. Please return to the home page and try again." />
+(The obscured window is the &quot;Confirm Deactivation&quot; CRM lightbox.)</p>
+<p>If you fill in the required fields and try again (with or without saving the form), then the Deactivate button click works.  Deactivating the record from a homepage grid or subgrid works regardless of the required fields.  The grid approach does not need required fields to be filled.  Why does the form need it?  Since the required fields were the apparent blockers, I thought the button was changing the statecode and statuscode fields, saving the form, and failing because you can't save the form when required fields are empty.  We have to see how the Deactivate button works, and I used <a href="https://community.dynamics.com/crm/b/develop1/archive/2016/04/25/ribbon-workbench-2016-beta">Ribbon Workbench for CRM 2016 (beta)</a> to see the function name I need to find.</p>
+<p><img src="http://i.imgur.com/GbvTDwn.png" alt="Deactivate Account form button in Ribbon Workbench" /></p>
+<p>The bottom right <strong>Custom Javascript Action</strong> is what an uncustomized Deactivate Button command does when clicked.  Ignore the action above it for now - it is the workaround I will describe later.</p>
+<p>The RibbonWorkbench showed me the library and function the Deactivate button calls - <code>CommandBarActions.js</code> and <code>Mscrm.CommandBarActions.changeState</code>.  If I am on the Account form, the button calls <code>Mscrm.CommandBarActions.changeState(&quot;deactivate&quot;, &quot;{my-account-guid}&quot;, &quot;account&quot;)</code>.  I copied into a gist the code that I followed while trying to mentally trace what happens when Deactivate is clicked in our scenario.  It is not the full CommandBarActions.js file.  I don't find a definitive answer, but if you want to read the optional ramblings, follow the comments from top to bottom in this gist.  It is suffice to know that empty required fields are the root of the problem that we can fix.</p>
+<p>I think this is a bug in CRM 2016 forms, but we can work around it in a supported way.  I wonder why the form does not do a <a href="https://msdn.microsoft.com/en-us/library/dn932124.aspx">specialized UpdateRequest</a> (fancy name for &quot;just update the statecode and statuscode in the UpdateRequest&quot;) through REST or WebApi?  It might be on a backlog somewhere.</p>
+<script src="https://gist.github.com/gfritz/99f3a44e2723da5a4980fc739f4c5d8e.js"></script>
+<p>Check the top right Custom Javascript Action again.  Notice the Custom Javascript Action called <code>deactivateFromFormWorkaround</code> taking <code>PrimaryEntityTypeName</code> as a parameter.  This will temporarily remove the required level from required fields so deactivating from the form will complete.
+<img src="http://i.imgur.com/GbvTDwn.png" alt="Custom Javascript Action Workaround with Ribbon Workbench" /></p>
+<script src="https://gist.github.com/gfritz/fd6a70dfb5258f666b85a217bc289efe.js"></script>
+<p>This code could have instead done a Metadata query to retrieve which fields are required for this form.  The SDK javascript libraries do asynchronous calls, and you can modify the functions to add a parameter to make them synchronous calls if you want.  I think the presented approach is simpler and definitely less code.  You do not have to restore the required levels as it is just a cleanup step.</p>
+<p>One problem with this approach is if the user cancels the Deactivate confirmation, then the formerly required fields will still be not required.</p>
+
+        </article>
+      </div>
+    </div>
+  </body>
+</html>

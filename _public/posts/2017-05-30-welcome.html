@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <meta charSet="utf-8"/>
+    <title>
+      Welcome to jekyll-minimal-theme - Another Minimal Jekyll Theme
+    </title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <link rel="alternate" type="application/atom+xml" href="/feed.xml" title="News Feed"/>
+  </head>
+  <body>
+    <div class="container">
+      <header class="masthead">
+        <h3 class="masthead-title">
+          <a href="/">
+            Garth Blog
+          </a>
+          <small class="masthead-link">
+            <a href="/archive.html">
+              Archive
+            </a>
+          </small>
+        </h3>
+      </header>
+      <div id="content">
+        <article class="post">
+          <h1 class="post-title">
+            Welcome to jekyll-minimal-theme - Another Minimal Jekyll Theme
+          </h1>
+          <div class="post-date">
+            5/30/2017
+          </div>
+          <p>What's <code>jekyll-minimal-theme</code>?</p>
+<p>It's another minimal(istic) Jekyll static site generator theme,
+that is, a ready-to-fork template pack. For example:</p>
+<pre><code>├── _config.yml                               # site configuration
+├── _posts                                    # sample blog posts
+|   ├── 2014-05-05-sportdb-update-v192.md     #   filename format:
+|   ├── 2014-10-10-new-repo-baviria-bayern.md #    =&gt; YEAR-MONTH-DAY-TITLE.MARKUP
+|   ├── 2014-10-21-sql-views.md
+|   ├── 2014-11-11-new-reop-maps.md
+|   └── 2014-12-15-quick-starter-datafiles.md
+├── _layouts
+|   ├── default.html                   # master layout template
+|   └── post.html                      # single blog post template
+├── css
+|   ├── _settings.scss                 # style settings (e.g. variables)
+|   └── style.scss                     # master style page
+├── feed.xml                           # web feed template (e.g. in atom format)
+├── archive.html                       # archive template
+└── index.html                         # index template
+</code></pre>
+<p>will result in (with <code>permalink: /:title.html</code>):</p>
+<pre><code>└── _site                                # output build folder; site gets generated here
+    ├── css
+    |   └── style.css                    # styles for pages (copied 1:1 as is)
+    ├── sportdb-update-v192.html         # blog post page
+    ├── new-repo-baviria-bayern.html     # another blog post page
+    ├── sql-views.html                   #  &quot;&quot;
+    ├── new-repo-maps.html               #  &quot;&quot;
+    ├── quick-starter-datafiles.html     #  &quot;&quot;
+    ├── feed.xml                         # web feed (e.g. in atom format)
+    ├── archive.html                     # archive page
+    └── index.html                       # index page
+</code></pre>
+<p>To use - delete all sample posts in the <code>_posts</code> folder and
+change the settings in <code>_config.yml</code> to use your own <code>site.title</code>
+and <code>site.url</code>:</p>
+<pre><code>title:   'Jekyll Minimal Theme'
+url:     'http://drjekyllthemes.github.io/jekyll-minimal-theme'
+author:
+  name:  'Jekyll Minimal Theme Team'
+</code></pre>
+
+        </article>
+      </div>
+    </div>
+  </body>
+</html>
