@@ -1,0 +1,20 @@
+version 5.193.0
+
+group blognetcore
+  storage: packages
+
+  source https://api.nuget.org/v3/index.json
+  source https://ci.appveyor.com/nuget/fsharp-formatting
+
+  nuget FSharp.Data
+  nuget Fake.Core.Trace
+  nuget Fake.IO.FileSystem
+  nuget Fable.React
+  nuget FSharp.Literate >= 3 beta
+
+group localhosting
+  storage: packages
+
+  source https://api.nuget.org/v3/index.json
+
+  nuget Giraffe
