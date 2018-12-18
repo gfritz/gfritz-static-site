@@ -57,16 +57,16 @@ I don't think any of our projects publish developer written release notes, but F
 
 ### Things My Team (and others) Did Not Like About FAKE
 
-I will use the following pattern:
-- problem/concern someone has
+I will use the following pattern to list the concerns:
+- the problem/concern someone has
   - my not necessarily nuanced retort
 
-
+Here we go:
 
 - Syntax is jarring (aka syntax shock).
   - I think you mean "is not C# syntax". Well so is HTML, CSS, SQL, JavaScript, Powershell, Bash, but you can do all of those!
 - Who will train and help other people to be familiar with F# if this becomes standard?
-  - Me. Duh. 
+  - Me. Duh.
 - Can't you just do all of this stuff in TeamCity and Octopus already? That's why we bought it.
   - Sounds like sunk cost fallacy to me.
   - If you want finer grained control over your build, I don't think that canned TeamCity steps will are enough.
