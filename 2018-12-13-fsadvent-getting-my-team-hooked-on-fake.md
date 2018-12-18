@@ -9,7 +9,7 @@ This is a post for [F# Advent 2018](https://sergeytihon.com/2018/10/22/f-advent-
 
 &mdash; Me, ranting in my 1 on 1 meetings with my manager
 
-I have been pushing for F# on my coworkers since I started in June 2017. Lots of things got thrown onto the wall, and the things that actually shipped were one project with JSON and WSDL Type Providers and, yesterday, a project built completely by FAKE (also has JSON and CSV Type Providers). 
+I have been pushing F# on my coworkers since I started in June 2017. Lots of things got thrown onto the wall, and the things that actually shipped were one project with JSON and WSDL Type Providers and, yesterday, a project built completely by FAKE (also has JSON and CSV Type Providers). 
 
 This post will describe the things that got my team hooked on [FAKE](https://fake.build/) - an F# DSL for Build Tasks and more. This will be more narrative and opinions than F# code. Sorry. (Not sorry)
 
