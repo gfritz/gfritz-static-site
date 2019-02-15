@@ -3,3 +3,6 @@ _site/
 .jekyll-cache/
 .jekyll-metadata
 .vs
+# only needed for local site build with docker
+gemfile
+gemfile.lock
