@@ -1,8 +1,6 @@
 ## Publishing to GitHub Pages
 
-
-### One time setup
-
+Requires fornax version 0.1.0 and works with sass 1.30.0. Upgrade ASAP to current fornax.
 
 ### Creating a repeatable workflow
 
