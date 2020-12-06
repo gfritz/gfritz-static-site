@@ -36,7 +36,7 @@ If you create and use a new dependency, you must add another field or constructo
 
 Refer to the [F# Language Reference for Flexible Types](https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/flexible-types).
 
-This type annotation allows us to specify that a "a parameter, variable, or value has a type that is compatible with a specified type". My understanding is that this annotation combined with two interfaces is what enables F# type inference to . Why two interfaces? One interface is for methods tailored to your application logic, and the other interface is to isolate a particular choice of infrastructure (logging, database, some API). Your "environment parameter" will expose the interfaces tailored to your application core logic.
+This type annotation allows us to specify that a "a parameter, variable, or value has a type that is compatible with a specified type". My understanding is that this annotation combined with two interfaces is what enables F# type inference to work. Why two interfaces? One interface is for methods tailored to your application logic, and the other interface is to isolate a particular choice of infrastructure (logging, database, some API). Your "environment parameter" will expose the interfaces tailored to your application core logic.
 
 ## An Example
 
