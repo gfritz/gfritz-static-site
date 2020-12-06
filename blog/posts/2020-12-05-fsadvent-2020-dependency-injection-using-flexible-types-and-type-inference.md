@@ -190,7 +190,7 @@ If I create a third module `SomeOtherDependency` following the same two interfac
 
 I do not depend on some library or framework. Type inference and flexible type annotations are standard F# language features. If the environment type does not meet the needs of some function in some module, the code will not compile.
 
-You still need to provide proper configurations, connection strings, etc at startup. The compiler does not check that, unless you are willing to consider using a type provider. See how [SQLProvider](https://fsprojects.github.io/SQLProvider/) does it. That may not be worth the effort and is beyond the scope of this post.
+You still need to provide proper configurations, connection strings, etc at startup. The compiler does not check that, unless you are willing to add in a type provider. [SQLProvider](https://fsprojects.github.io/SQLProvider/) for example checks queries against a real database at compile time. Maybe there is a type provider or similar tool to do that for your configured dependency? That does not sound worth the effort and is beyond the scope of this post.
 
 ### Remaining Questions
 
@@ -206,7 +206,7 @@ So far this post sounds like I am totally sold and have no other concerns. That 
 
 View the other [F# Advent 2020 posts](https://sergeytihon.com/2020/10/22/f-advent-calendar-in-english-2020/)!
 
-I would like to thank Bartosz for his post. I think the 
+I would like to thank Bartosz for his post. I think it showed me a middle ground between partial application and a reader monad that I would not have found by myself.
 
 Links:
 * [Dealing with complex dependency injection in F# - Bartosz Sypytkowski, 22-Mar-2020](https://bartoszsypytkowski.com/dealing-with-complex-dependency-injection-in-f/)
